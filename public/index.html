@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>Visit Availability</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+        .header button {
+            padding: 10px;
+            font-size: 1em;
+        }
+        #calendar-container {
+            flex: 1;
+            overflow: hidden;
+            padding: 10px;
+        }
+        #calendar {
+            width: 100%;
+            height: 100%;
+        }
+        .fc-available {
+            background-color: green !important;
+        }
+        .fc-unavailable {
+            background-color: red !important;
+        }
+        .fc-transition {
+            background-color: orange !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Visit Availability</h1>
+        <button id="refresh-button">Refresh</button>
+    </div>
+    <div id="calendar-container">
+        <div id="calendar"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ical.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
