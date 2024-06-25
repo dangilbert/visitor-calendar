@@ -19,7 +19,7 @@ jobs:
       - name: Build and push Docker image
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
-          name: visitor-calendar
+          image: visitor-calendar
           tags: latest
           registry: ghcr.io
           username: ${{ github.repository_owner }}
