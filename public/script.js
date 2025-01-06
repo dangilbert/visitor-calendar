@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", function () {
               end: event.end,
               className: "fc-unavailable",
             })),
-            ...events.map((event) => transitionDay(event.start)),
-            ...events.map((event) => transitionDay(event.end, true)),
+            // ...events.map((event) => transitionDay(event.start)),
+            // ...events.map((event) => transitionDay(event.end, true)),
           ]);
         })
         .catch((error) => {
