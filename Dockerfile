@@ -1,25 +1,20 @@
-# Use the official Node.js 20 image.
-# https://hub.docker.com/_/node
-FROM node:20
+# Node 20 is end of life. 22.23.4 fixes CVE-2026-111497 (Brotli decoder
+# out-of-bounds write), which matters here: axios decompresses the fetched
+# calendar feed. Pinned to the patch release so the shipped runtime is explicit.
+FROM node:22.23.4-alpine
 
-# Create and change to the app directory.
+LABEL org.opencontainers.image.source="https://github.com/dangilbert/visitor-calendar"
+
 WORKDIR /usr/src/app
 
-# Copy application dependency manifests to the container image.
-# A wildcard is used to ensure both package.json AND yarn.lock are copied.
+# Production dependencies only: nodemon, browser-sync and friends are for local
+# development and have no business in the image.
+ENV NODE_ENV=production
 COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --production && yarn cache clean
 
-# Install app dependencies using Yarn.
-RUN yarn install
-
-# Copy application files
 COPY . .
 
-# Set environment variables
-ENV NODE_ENV=production
-
-# Expose the port the app runs on
+USER node
 EXPOSE 3000
-
-# Run the application
-CMD ["yarn", "start"]
+CMD ["node", "server.js"]
