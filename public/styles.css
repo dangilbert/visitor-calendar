@@ -31,6 +31,10 @@
 
 * { box-sizing: border-box; }
 
+/* No double-tap zoom, which fires when tapping the arrows quickly. Pinch zoom
+   still works, so people who need larger text can still get it. */
+html { touch-action: manipulation; -webkit-text-size-adjust: 100%; }
+
 body {
   margin: 0;
   background: var(--bg);
