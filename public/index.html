@@ -1,65 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-    <title>Visit Availability</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #f8f9fa;
-            border-bottom: 1px solid #dee2e6;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 1.5em;
-        }
-        .header button {
-            padding: 10px;
-            font-size: 1em;
-        }
-        #calendar-container {
-            flex: 1;
-            overflow: hidden;
-            padding: 10px;
-        }
-        #calendar {
-            width: 100%;
-            height: 100%;
-        }
-        .fc-available {
-            background-color: green !important;
-        }
-        .fc-unavailable {
-            background-color: red !important;
-        }
-        .fc-transition {
-            background-color: orange !important;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Come and Visit</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏡</text></svg>">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="header">
-        <h1>Visit Availability</h1>
-        <button id="refresh-button">Refresh</button>
-    </div>
-    <div id="calendar-container">
-        <div id="calendar"></div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/ical.js"></script>
-    <script src="script.js"></script>
+  <main class="page">
+    <header class="intro">
+      <p class="eyebrow">Siobhan &amp; Dan</p>
+      <h1>When can you come and stay?</h1>
+      <p class="lede">Any day that isn't marked is free. Pick some dates and drop us a message.</p>
+      <ul class="legend" aria-label="Legend">
+        <li><span class="swatch swatch-free"></span>Free</li>
+        <li><span class="swatch swatch-busy"></span>Away or already have guests</li>
+      </ul>
+    </header>
+
+    <section class="openings" aria-labelledby="openings-title">
+      <h2 id="openings-title">Next free stretches</h2>
+      <ol id="openings" class="openings-list">
+        <li class="skeleton"></li><li class="skeleton"></li><li class="skeleton"></li>
+      </ol>
+    </section>
+
+    <section aria-label="Calendar">
+      <div class="months-nav">
+        <button type="button" id="prev" aria-label="Earlier months">←</button>
+        <button type="button" id="today">Today</button>
+        <button type="button" id="next" aria-label="Later months">→</button>
+      </div>
+      <div id="months" class="months" aria-live="polite"></div>
+    </section>
+
+    <p id="status" class="status" role="status"></p>
+  </main>
+  <script src="script.js"></script>
 </body>
 </html>
