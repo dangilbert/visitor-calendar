@@ -3,7 +3,10 @@
 // household's timezone throughout, so nothing shifts across DST or devices.
 
 const TIME_ZONE = "Europe/Madrid";
-const MONTHS_SHOWN = window.matchMedia("(max-width: 480px)").matches ? 3 : 6;
+// One row of months: as many as fit side by side, and the arrows step one month.
+const wide = window.matchMedia("(min-width: 960px)");
+const medium = window.matchMedia("(min-width: 640px)");
+const monthsShown = () => (wide.matches ? 3 : medium.matches ? 2 : 1);
 const LOOKAHEAD_DAYS = 365;
 const MIN_DAYS = 3;
 const OPENINGS_SHOWN = 4;
@@ -36,8 +39,10 @@ const isBusy = (ymd) => busy.some((r) => ymd >= r.start && ymd <= r.end);
 function renderMonths() {
   const container = document.getElementById("months");
   container.replaceChildren();
+  const count = monthsShown();
+  container.style.setProperty("--cols", count);
 
-  for (let i = 0; i < MONTHS_SHOWN; i++) {
+  for (let i = 0; i < count; i++) {
     const first = toDate(firstMonth);
     first.setUTCMonth(first.getUTCMonth() + i);
     const firstYmd = toYmd(first);
@@ -137,12 +142,15 @@ function shiftMonths(n) {
   renderMonths();
 }
 
-document.getElementById("prev").addEventListener("click", () => shiftMonths(-MONTHS_SHOWN));
-document.getElementById("next").addEventListener("click", () => shiftMonths(MONTHS_SHOWN));
+document.getElementById("prev").addEventListener("click", () => shiftMonths(-1));
+document.getElementById("next").addEventListener("click", () => shiftMonths(1));
 document.getElementById("today").addEventListener("click", () => {
   firstMonth = todayYmd.slice(0, 7) + "-01";
   renderMonths();
 });
+
+wide.addEventListener("change", renderMonths);
+medium.addEventListener("change", renderMonths);
 
 renderMonths();
 

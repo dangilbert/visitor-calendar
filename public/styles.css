@@ -128,7 +128,7 @@ h1 {
 /* Month grids */
 .months {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(var(--cols, 1), minmax(0, 1fr));
   gap: 16px;
 }
 .month {
@@ -188,5 +188,4 @@ h1 {
 
 @media (max-width: 480px) {
   .page { padding-top: 28px; }
-  .months { grid-template-columns: 1fr; }
 }
